@@ -4,7 +4,7 @@ import wave
 
 # Parameters for recording
 samplerate = 44100  # Sample rate (44.1 kHz is standard)
-duration = 5       # Duration of the recording in seconds
+duration = 60       # Duration of the recording in seconds
 channels = 2        # Number of channels (stereo)
 
 # File to save the recording
@@ -30,5 +30,26 @@ def record_audio(filename, samplerate, duration, channels):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+# Save left and right channels to separate WAV files
+def save_mono_wav(filename, data, sample_rate):
+    with wave.open(filename, 'w') as wf:
+        wf.setnchannels(1)  # Mono
+        wf.setsampwidth(2)  # Bytes per sample
+        wf.setframerate(sample_rate)
+        wf.writeframes(data.tobytes())
+
+def record_audio_and_save_left_and_right(filename, samplerate, duration, channels):
+    print("Recording...")
+    audio_data = sd.rec(int(samplerate * duration), samplerate, channels, dtype='int16')
+    sd.wait()
+    print("Recording finished.")
+
+    # Split channels
+    left_channel = audio_data[:, 0]
+    right_channel = audio_data[:, 1]
+
+    save_mono_wav("left_channel.wav", left_channel, samplerate)
+    save_mono_wav("right_channel.wav", right_channel, samplerate)
+
 # Call the function
-record_audio(filename, samplerate, duration, channels)
+record_audio_and_save_left_and_right(filename, samplerate, duration, channels)
