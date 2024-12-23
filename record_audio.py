@@ -47,9 +47,11 @@ def record_audio_and_save_left_and_right(filename, samplerate, duration, channel
     # Split channels
     left_channel = audio_data[:, 0]
     right_channel = audio_data[:, 1]
+    stereo_channel = audio_data
 
     save_mono_wav("left_channel.wav", left_channel, samplerate)
     save_mono_wav("right_channel.wav", right_channel, samplerate)
+    save_mono_wav("stereo_channel.wav", stereo_channel, samplerate)
 
 # Call the function
 record_audio_and_save_left_and_right(filename, samplerate, duration, channels)
