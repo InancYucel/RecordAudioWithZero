@@ -41,7 +41,7 @@ def save_mono_wav(filename, data, sample_rate):
 def save_stereo_wav(filename, data, samplerate):
     with wave.open(filename, 'w') as wf:
         with wave.open(filename, 'w') as wf:
-            wf.setnchannels(channels)
+            wf.setnchannels(2)
             wf.setsampwidth(2)  # 2 bytes (16 bits)
             wf.setframerate(samplerate)
             wf.writeframes(data.tobytes())
