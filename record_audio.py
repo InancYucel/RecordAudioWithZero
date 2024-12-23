@@ -4,7 +4,7 @@ import wave
 
 # Parameters for recording
 samplerate = 44100  # Sample rate (44.1 kHz is standard)
-duration = 60       # Duration of the recording in seconds
+duration = 15       # Duration of the recording in seconds
 channels = 2        # Number of channels (stereo)
 
 # File to save the recording
