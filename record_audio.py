@@ -38,6 +38,14 @@ def save_mono_wav(filename, data, sample_rate):
         wf.setframerate(sample_rate)
         wf.writeframes(data.tobytes())
 
+def save_stereo_wav(filename, data, samplerate):
+    with wave.open(filename, 'w') as wf:
+        with wave.open(filename, 'w') as wf:
+            wf.setnchannels(channels)
+            wf.setsampwidth(2)  # 2 bytes (16 bits)
+            wf.setframerate(samplerate)
+            wf.writeframes(data.tobytes())
+
 def record_audio_and_save_left_and_right(filename, samplerate, duration, channels):
     print("Recording...")
     audio_data = sd.rec(int(samplerate * duration), samplerate, channels, dtype='int16')
@@ -51,7 +59,7 @@ def record_audio_and_save_left_and_right(filename, samplerate, duration, channel
 
     save_mono_wav("left_channel.wav", left_channel, samplerate)
     save_mono_wav("right_channel.wav", right_channel, samplerate)
-    save_mono_wav("stereo_channel.wav", stereo_channel, samplerate)
+    save_stereo_wav("stereo_channel.wav", stereo_channel, samplerate)
 
 # Call the function
 record_audio_and_save_left_and_right(filename, samplerate, duration, channels)
